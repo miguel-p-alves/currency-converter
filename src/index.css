@@ -1,0 +1,36 @@
+@import 'tailwindcss';
+@custom-variant dark (&:where(.dark, .dark *));
+@theme {
+  --animate-slideLeft: slideLeft 0.5s ease-in-out;
+  @keyframes slideLeft {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+  --animate-slideRight: slideRight 0.5s ease-in-out;
+  @keyframes slideRight {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+}
+* {
+  @apply transition-colors duration-50;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
