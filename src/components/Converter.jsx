@@ -23,8 +23,26 @@ const Converter = () => {
   }, [rates])
 
   const popularCurrencies = [
-    'USD', 'EUR', 'JPY', 'GBP', 'CNY', 'AUD', 'CAD', 'CHF', 'BRL', 'INR',
-    'MXN', 'RUB', 'HKD', 'ZAR', 'SEK', 'NZD', 'SGD', 'KRW', 'ARS', 'BDT',
+    'USD',
+    'EUR',
+    'JPY',
+    'GBP',
+    'CNY',
+    'AUD',
+    'CAD',
+    'CHF',
+    'BRL',
+    'INR',
+    'MXN',
+    'RUB',
+    'HKD',
+    'ZAR',
+    'SEK',
+    'NZD',
+    'SGD',
+    'KRW',
+    'ARS',
+    'BDT',
   ]
 
   useEffect(() => {
@@ -35,7 +53,7 @@ const Converter = () => {
   const handleSwapCurrencies = () => {
     const temp = currency1
     const newAmount2 = (amount1 * rates[temp]) / rates[currency2]
-    
+
     setCurrency1(currency2)
     setCurrency2(temp)
     setAmount2(format(newAmount2))
@@ -47,8 +65,8 @@ const Converter = () => {
   const currencies = Object.keys(rates)
 
   const sortedCurrencies = [
-    ...popularCurrencies.filter(currency => currencies.includes(currency)),
-    ...currencies.filter(currency => !popularCurrencies.includes(currency)),
+    ...popularCurrencies.filter((currency) => currencies.includes(currency)),
+    ...currencies.filter((currency) => !popularCurrencies.includes(currency)),
   ]
 
   const handleAmount1Change = (amount1) => {
@@ -93,7 +111,7 @@ const Converter = () => {
           onCurrencyChange={handleCurrency1Change}
           onAmountChange={handleAmount1Change}
         />
-        
+
         <div>
           <svg
             onClick={handleSwapCurrencies}

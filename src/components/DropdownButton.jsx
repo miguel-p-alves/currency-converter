@@ -24,7 +24,7 @@ const DropdownButton = ({ open, toggle, currency }) => {
               svg
               style={{ width: '20px', height: '15px' }}
             />
-            {currency}
+            <p className='dark:text-white'>{currency}</p>
           </>
         )}
       </div>

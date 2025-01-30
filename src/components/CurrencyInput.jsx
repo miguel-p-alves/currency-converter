@@ -13,7 +13,7 @@ const CurrencyInput = (props) => {
     <div className="flex flex-col font-[Poppins] relative">
       <label htmlFor="amount">Amount</label>
       <input
-        className="bg-[#F5F5F5] dark:bg-[#1E1E1E] dark:border-[#444444] border border-[#E0E0E0] rounded-md py-[14px] pl-[12px] min-w-sm focus:outline-none focus:ring-0 focus:border-[#BDBDBD] placeholder-[#666666]"
+        className="bg-[#F5F5F5] dark:bg-[#1E1E1E] dark:border-[#444444] border border-[#E0E0E0] rounded-md py-[14px] pl-[12px] min-w-sm focus:outline-none focus:ring-0 focus:border-[#BDBDBD] placeholder-[#666666] "
         type="number"
         id="amount"
         name="amount"
@@ -38,7 +38,7 @@ const CurrencyInput = (props) => {
                       svg
                       style={{ width: '20px', height: '15px' }}
                     />
-                    {currency} {/* This text node is used for filtering */}
+                    {currency}
                   </div>
                 </DropdownItem>
               )

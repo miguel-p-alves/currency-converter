@@ -55,7 +55,7 @@ const Dropdown = ({ content, selectedCurrency }) => {
   })
 
   return (
-    <div className="flex justify-end" ref={dropDownRef}>
+    <div className="flex justify-end dark:text-white" ref={dropDownRef}>
       <DropdownButton
         toggle={toggleDropdown} // Pass toggleDropdown to DropdownButton
         open={open}
