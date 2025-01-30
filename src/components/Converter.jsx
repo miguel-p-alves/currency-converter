@@ -12,6 +12,7 @@ const Converter = () => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
+
   const format = (number) => {
     return number.toFixed(4)
   }
@@ -59,6 +60,7 @@ const Converter = () => {
     ...popularCurrencies.filter((currency) => currencies.includes(currency)),
     ...currencies.filter((currency) => !popularCurrencies.includes(currency)),
   ]
+
 
   const handleAmount1Change = (amount1) => {
     if (currency1 === currency2) {

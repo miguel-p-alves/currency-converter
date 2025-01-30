@@ -1,8 +1,41 @@
 import Dropdown from './Dropdown'
 import DropdownItem from './DropdownItem'
 import PropTypes from 'prop-types'
+import CountryFlag from 'react-country-flag'
 
 const CurrencyInput = (props) => {
+  // Currency-to-country code mapping (fixo)
+  const currencyToCountryCode = {
+    USD: 'US',
+    EUR: 'EU',
+    JPY: 'JP',
+    GBP: 'GB',
+    CNY: 'CN',
+    AUD: 'AU',
+    CAD: 'CA',
+    CHF: 'CH',
+    BRL: 'BR',
+    INR: 'IN',
+    MXN: 'MX',
+    RUB: 'RU',
+    HKD: 'HK',
+    ZAR: 'ZA',
+    SEK: 'SE',
+    NZD: 'NZ',
+    SGD: 'SG',
+    KRW: 'KR',
+    ARS: 'AR',
+    BDT: 'BD',
+    // Mais moedas podem ser adicionadas aqui
+  }
+
+  // Função para obter o código da bandeira, agora tenta dinamicamente a partir do país
+  const getFlagCode = (currency) => {
+    // Primeiro tenta o mapeamento fixo
+    const fixedFlag = currencyToCountryCode[currency]
+    if (fixedFlag) return fixedFlag
+  }
+
   return (
     <div className="flex flex-col font-[Poppins] relative">
       <label htmlFor="amount">Amount</label>
@@ -26,6 +59,12 @@ const CurrencyInput = (props) => {
                   key={currency}
                   onClick={() => props.onCurrencyChange(currency)}
                 >
+                  {/* Render country flag */}
+                  <CountryFlag
+                    countryCode={getFlagCode(currency)} // Obtem a bandeira com base na moeda
+                    svg
+                    style={{ width: 20, height: 15, marginRight: '8px' }}
+                  />
                   {currency}
                 </DropdownItem>
               )
