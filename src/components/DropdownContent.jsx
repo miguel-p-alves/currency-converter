@@ -1,15 +1,15 @@
 import PropTypes from 'prop-types'
 
 const DropdownContent = ({ children, open }) => {
-  return (
-    <div
-      className={`absolute min-w-[120px] flex flex-col items-center p-[1rem] mt[0.5rem] bg-white dark:bg-[#2D2D2D] rounded-bl-2xl shadow-sm max-h-[40vh] overflow-y-auto overflow-x-hidden dropdown-content  ${
-        open ? 'opacity-100 transform button-open' : 'opacity-0'
-      }`}
-    >
-      {children}
-    </div>
-  )
+ return (
+   <div
+     className={`absolute min-w-[165px] md:min-w-[200px] flex flex-col items-center p-2 md:p-4 mt-2 bg-white dark:bg-[#2D2D2D] rounded-lg shadow-lg max-h-[50vh] overflow-y-auto overflow-x-hidden z-50 ${
+       open ? 'opacity-100 visible' : 'opacity-0 invisible'
+     }`}
+   >
+     {children}
+   </div>
+ )
 }
 
 DropdownContent.propTypes = {

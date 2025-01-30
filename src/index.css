@@ -21,7 +21,7 @@
   }
 }
 * {
-  @apply transition-colors duration-50;
+  @apply transition-colors duration-20;
 }
 
 html,

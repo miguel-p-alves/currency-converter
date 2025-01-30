@@ -4,7 +4,7 @@ import DropdownContent from './DropdownContent'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-const Dropdown = ({ content, selectedCurrency }) => {
+const Dropdown = ({ content = <></>, selectedCurrency }) => {
   const dropDownRef = useRef()
   const [open, setOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
@@ -29,17 +29,23 @@ const Dropdown = ({ content, selectedCurrency }) => {
   }
 
   // Filter dropdown items based on search query
-  const filteredContent = React.Children.toArray(content.props.children).filter(
-    (child) => {
-      if (!React.isValidElement(child)) return false
+  const filteredContent = React.Children.toArray(
+    content.props?.children || []
+  ).filter((child) => {
+    if (!React.isValidElement(child)) return false
 
-      // Safely access the currency value
-      const currency = child.props.children.props.children[1] // Adjusted to match your structure
-      return (
-        currency && currency.toLowerCase().includes(searchQuery.toLowerCase())
-      )
-    }
-  )
+    // Acessar o valor da moeda de forma segura
+    const currencyElement = child.props.children.props.children[1]
+    const currency =
+      typeof currencyElement === 'string'
+        ? currencyElement
+        : currencyElement.props.children
+
+    return (
+      typeof currency === 'string' &&
+      currency.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+  })
 
   // Enhance children to close dropdown on click
   const enhancedContent = React.Children.map(filteredContent, (child) => {
@@ -55,9 +61,12 @@ const Dropdown = ({ content, selectedCurrency }) => {
   })
 
   return (
-    <div className="flex justify-end dark:text-white" ref={dropDownRef}>
+    <div
+      className="flex justify-end dark:text-white relative md:static"
+      ref={dropDownRef}
+    >
       <DropdownButton
-        toggle={toggleDropdown} // Pass toggleDropdown to DropdownButton
+        toggle={toggleDropdown}
         open={open}
         currency={selectedCurrency}
       />
@@ -65,7 +74,7 @@ const Dropdown = ({ content, selectedCurrency }) => {
         <input
           type="text"
           placeholder="Search"
-          className="w-[100px] p-2 mb-2 border-b dark:bg-[#2D2D2D] dark:border-[#444444] focus:outline-none"
+          className="w-full md:w-[160px] p-2 mb-2 border-b dark:bg-[#2D2D2D] dark:border-[#444444] focus:outline-none text-sm md:text-base"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />

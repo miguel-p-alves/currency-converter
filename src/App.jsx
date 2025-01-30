@@ -38,14 +38,16 @@ function App() {
   }, [darkMode])
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <h1 className="text-center mt-[70px] mb-[133px] text-4xl text-[#333333] dark:text-[#fff] font-bold font-[Poppins]">
-        Currency Converter.
-      </h1>
-      <Converter/>
+    <div className="min-h-screen flex flex-col">
+      <main className="flex-grow pb-24 md:pb-32 flex-1">
+        <h1 className="text-center mt-[70px] mb-[133px] text-4xl text-[#333333] dark:text-[#fff] font-bold font-[Poppins]">
+          Currency Converter.
+        </h1>
+        <Converter />
+      </main>
       <Footer />
       <button
-        className="absolute w-16 h-16 bottom-30 right-16 bg-neutral-900 dark:bg-white rounded-full text-white dark:text-black font-semibold"
+        className="fixed md:bottom-35 z-50 p-3 w-16 h-16 bottom-30 right-16 bg-neutral-900 dark:bg-white rounded-full text-white dark:text-black font-semibold"
         onClick={toggleDarkMode}
       >
         {darkMode ? (

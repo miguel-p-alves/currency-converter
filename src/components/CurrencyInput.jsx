@@ -10,44 +10,49 @@ const CurrencyInput = (props) => {
   }
 
   return (
-    <div className="flex flex-col font-[Poppins] relative">
-      <label htmlFor="amount">Amount</label>
-      <input
-        className="bg-[#F5F5F5] dark:bg-[#1E1E1E] dark:border-[#444444] border border-[#E0E0E0] rounded-md py-[14px] pl-[12px] min-w-sm focus:outline-none focus:ring-0 focus:border-[#BDBDBD] placeholder-[#666666] "
-        type="number"
-        id="amount"
-        name="amount"
-        value={props.amount}
-        onChange={(ev) => props.onAmountChange(ev.target.value)}
-        placeholder="Enter amount"
-        autoComplete="off"
-      />
-      <Dropdown
-        content={
-          <>
-            {props.currencies.map((currency) => {
-              return (
-                // In the DropdownItem rendering:
-                <DropdownItem
-                  key={currency}
-                  onClick={() => props.onCurrencyChange(currency)}
-                >
-                  <div className="flex items-center gap-3">
-                    <CountryFlag
-                      countryCode={getFlagCode(currency)}
-                      svg
-                      style={{ width: '20px', height: '15px' }}
-                    />
-                    {currency}
-                  </div>
-                </DropdownItem>
-              )
-            })}
-          </>
-        }
-        selectedCurrency={props.currency}
-        onCurrencyChange={props.onCurrencyChange}
-      />
+    <div className="flex flex-col font-[Poppins] relative w-full">
+      <label htmlFor="amount" className="text-sm md:text-base mb-2">Amount</label>
+      <div className="relative">
+        <input
+          className="bg-[#F5F5F5] dark:bg-[#1E1E1E] dark:border-[#444444] border border-[#E0E0E0] rounded-md py-3 md:py-[14px] pl-4 pr-24 md:pr-28 w-full focus:outline-none focus:ring-0 focus:border-[#BDBDBD] placeholder-[#666666] text-sm md:text-base h-14 md:h-16"
+          type="number"
+          id="amount"
+          name="amount"
+          value={props.amount}
+          onChange={(ev) => props.onAmountChange(ev.target.value)}
+          placeholder="Enter amount"
+          autoComplete="off"
+        />
+        <Dropdown
+          content={
+            props.currencies?.length > 0 ? (
+              <>
+                {props.currencies.map((currency) => {
+                  const flagCode = getFlagCode(currency)
+                  return (
+                    <DropdownItem
+                      key={String(currency)}
+                      onClick={() => props.onCurrencyChange(String(currency))}
+                    >
+                      <div className="flex items-center gap-3 px-2 py-1.5">
+                        {flagCode && (
+                          <CountryFlag
+                            countryCode={flagCode}
+                            svg
+                            style={{ width: '24px', height: '18px' }}
+                          />
+                        )}
+                        <span className="text-sm md:text-base">{String(currency)}</span>
+                      </div>
+                    </DropdownItem>
+                  )
+                })}
+              </>
+            ) : null
+          }
+          selectedCurrency={props.currency}
+        />
+      </div>
     </div>
   )
 }

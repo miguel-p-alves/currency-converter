@@ -11,28 +11,25 @@ const DropdownButton = ({ open, toggle, currency }) => {
 
   return (
     <button
-      className={`absolute inset-y-6 right-5 cursor-pointer h-13.5 border-none focus:ring-0 focus:border-none text-sm text-[#333333] dark:text-[#BDBDBD] flex gap-1.5 items-center ${
-        open ? 'button-open' : null
-      }`}
+      className={`absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2 bg-transparent border-none cursor-pointer p-0`}
       onClick={toggle}
     >
-      <div className="flex items-center gap-2">
-        {currency && (
-          <>
-            <CountryFlag
-              countryCode={getFlagCode(currency)}
-              svg
-              style={{ width: '20px', height: '15px' }}
-            />
-            <p className='dark:text-white'>{currency}</p>
-          </>
+      <div className="flex items-center gap-2 bg-white dark:bg-[#2D2D2D] px-2 py-1 rounded-md">
+        <CountryFlag
+          countryCode={getFlagCode(currency)}
+          svg
+          style={{ width: '24px', height: '18px' }}
+          className="shrink-0"
+        />
+        <span className="text-sm md:text-base font-medium dark:text-white truncate">
+          {currency}
+        </span>
+        {open ? (
+          <FontAwesomeIcon icon={faChevronUp} className="ml-1 text-sm" />
+        ) : (
+          <FontAwesomeIcon icon={faChevronDown} className="ml-1 text-sm" />
         )}
       </div>
-      {open ? (
-        <FontAwesomeIcon icon={faChevronUp} />
-      ) : (
-        <FontAwesomeIcon icon={faChevronDown} />
-      )}
     </button>
   )
 }
