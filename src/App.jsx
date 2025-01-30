@@ -1,10 +1,9 @@
-import Converter from './Converter'
-import Footer from './Footer'
+import Converter from './components/Converter'
+import Footer from './components/Footer'
 import './index.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons'
 import { useEffect, useState } from 'react'
-
 
 function App() {
   const [darkMode, setDarkMode] = useState(false)

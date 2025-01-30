@@ -34,3 +34,15 @@ select {
   -moz-appearance: none;
   appearance: none;
 }
+
+.dropdown-content {
+  transform: translateY(-5%);
+  transition: transform 150ms ease-in-out;
+  opacity: 100ms easy-in-out;
+  pointer-events: none;
+}
+
+.button-open {
+  transform: translateY(0);
+  pointer-events: all;
+}

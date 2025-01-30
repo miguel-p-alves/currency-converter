@@ -1,7 +1,11 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
+import { useState } from 'react'
+import Dropdown from './Dropdown'
+import DropdownItem from './DropdownItem'
+import countryData from '../CountryData'
 
 const Converter = () => {
+  const [country] = useState(countryData)
+  console.log(country.code)
   return (
     <main className="mx-auto bg-[#FFFFFF] dark:bg-[#2D2D2D] dark:text-[#BDBDBD] box-border min-w-[1248px] px-[60px] py-[95px] rounded-lg shadow-md">
       <div className="flex justify-between">
@@ -14,9 +18,15 @@ const Converter = () => {
             name="amount"
             placeholder="Enter amount"
           />
-          <button className="absolute inset-y-6 right-5 cursor-pointer h-13.5 border-none focus:ring-0 focus:border-none text-sm text-[#333333] dark:text-[#BDBDBD]">
-            Currency <FontAwesomeIcon icon={faChevronDown} />
-          </button>
+          <Dropdown
+            content={
+              <>
+                {country.map((country) => (
+                  <DropdownItem key={country.code}>{country.code}</DropdownItem>
+                ))}
+              </>
+            }
+          />
         </div>
         <div>
           <svg
