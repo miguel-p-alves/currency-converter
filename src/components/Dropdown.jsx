@@ -7,7 +7,9 @@ import React from 'react'
 const Dropdown = ({ content, selectedCurrency }) => {
   const dropDownRef = useRef()
   const [open, setOpen] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
 
+  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropDownRef.current && !dropDownRef.current.contains(event.target)) {
@@ -18,33 +20,49 @@ const Dropdown = ({ content, selectedCurrency }) => {
     return () => document.removeEventListener('click', handleClickOutside)
   }, [])
 
-  const enhancedContent = React.Children.map(
-    content.props.children,
+  // Toggle dropdown open/close
+  const toggleDropdown = () => {
+    setOpen((prevOpen) => {
+      if (!prevOpen) setSearchQuery('') // Reset search when opening
+      return !prevOpen
+    })
+  }
+
+  // Filter dropdown items based on search query
+  const filteredContent = React.Children.toArray(content.props.children).filter(
     (child) => {
-      if (React.isValidElement(child)) {
-        return React.cloneElement(child, {
-          onClick: (...args) => {
-            child.props.onClick?.(...args)
-            setOpen(false)
-          },
-        })
-      }
-      return child
+      if (!React.isValidElement(child)) return false
+
+      // Safely access the currency value
+      const currency = child.props.children.props.children[1] // Adjusted to match your structure
+      return (
+        currency && currency.toLowerCase().includes(searchQuery.toLowerCase())
+      )
     }
   )
 
   return (
     <div className="flex justify-end" ref={dropDownRef}>
       <DropdownButton
-        toggle={() => setOpen(!open)}
+        toggle={toggleDropdown} // Pass toggleDropdown to DropdownButton
         open={open}
         currency={selectedCurrency}
       />
-      <DropdownContent open={open}>{enhancedContent}</DropdownContent>
+      <DropdownContent open={open}>
+        <input
+          type="text"
+          placeholder="Search"
+          className="w-[100px] p-2 mb-2 border-b dark:bg-[#2D2D2D] dark:border-[#444444] focus:outline-none"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+        {filteredContent}
+      </DropdownContent>
     </div>
   )
 }
 
+// Add PropTypes here
 Dropdown.propTypes = {
   content: PropTypes.node.isRequired,
   selectedCurrency: PropTypes.string.isRequired,

@@ -1,39 +1,12 @@
+import CountryData from '../CountryData'
 import Dropdown from './Dropdown'
 import DropdownItem from './DropdownItem'
 import PropTypes from 'prop-types'
 import CountryFlag from 'react-country-flag'
 
 const CurrencyInput = (props) => {
-  // Currency-to-country code mapping (fixo)
-  const currencyToCountryCode = {
-    USD: 'US',
-    EUR: 'EU',
-    JPY: 'JP',
-    GBP: 'GB',
-    CNY: 'CN',
-    AUD: 'AU',
-    CAD: 'CA',
-    CHF: 'CH',
-    BRL: 'BR',
-    INR: 'IN',
-    MXN: 'MX',
-    RUB: 'RU',
-    HKD: 'HK',
-    ZAR: 'ZA',
-    SEK: 'SE',
-    NZD: 'NZ',
-    SGD: 'SG',
-    KRW: 'KR',
-    ARS: 'AR',
-    BDT: 'BD',
-    // Mais moedas podem ser adicionadas aqui
-  }
-
-  // Função para obter o código da bandeira, agora tenta dinamicamente a partir do país
   const getFlagCode = (currency) => {
-    // Primeiro tenta o mapeamento fixo
-    const fixedFlag = currencyToCountryCode[currency]
-    if (fixedFlag) return fixedFlag
+    return CountryData[currency] || ''
   }
 
   return (
@@ -50,28 +23,30 @@ const CurrencyInput = (props) => {
         autoComplete="off"
       />
       <Dropdown
-        onChange={(ev) => props.onCurrencyChange(ev.target.value)}
         content={
           <>
             {props.currencies.map((currency) => {
               return (
+                // In the DropdownItem rendering:
                 <DropdownItem
                   key={currency}
                   onClick={() => props.onCurrencyChange(currency)}
                 >
-                  {/* Render country flag */}
-                  <CountryFlag
-                    countryCode={getFlagCode(currency)} // Obtem a bandeira com base na moeda
-                    svg
-                    style={{ width: 20, height: 15, marginRight: '8px' }}
-                  />
-                  {currency}
+                  <div className="flex items-center gap-3">
+                    <CountryFlag
+                      countryCode={getFlagCode(currency)}
+                      svg
+                      style={{ width: '20px', height: '15px' }}
+                    />
+                    {currency} {/* This text node is used for filtering */}
+                  </div>
                 </DropdownItem>
               )
             })}
           </>
         }
         selectedCurrency={props.currency}
+        onCurrencyChange={props.onCurrencyChange}
       />
     </div>
   )
@@ -81,8 +56,8 @@ CurrencyInput.propTypes = {
   amount: PropTypes.number.isRequired,
   currency: PropTypes.string.isRequired,
   currencies: PropTypes.array.isRequired,
-  onCurrencyChange: PropTypes.func,
-  onAmountChange: PropTypes.func,
+  onCurrencyChange: PropTypes.func.isRequired,
+  onAmountChange: PropTypes.func.isRequired,
 }
 
 export default CurrencyInput
