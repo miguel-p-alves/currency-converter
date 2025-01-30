@@ -12,44 +12,34 @@ const Converter = () => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
-
   const format = (number) => {
     return number.toFixed(4)
   }
 
   useEffect(() => {
     if (rates['BRL'] && rates['USD']) {
-      // Define o valor de 1 BRL para USD assim que as taxas forem carregadas
       setAmount2(format((1 * rates['USD']) / rates['BRL']))
     }
   }, [rates])
 
   const popularCurrencies = [
-    'USD',
-    'EUR',
-    'JPY',
-    'GBP',
-    'CNY',
-    'AUD',
-    'CAD',
-    'CHF',
-    'BRL',
-    'INR',
-    'MXN',
-    'RUB',
-    'HKD',
-    'ZAR',
-    'SEK',
-    'NZD',
-    'SGD',
-    'KRW',
-    'ARS',
-    'BDT',
+    'USD', 'EUR', 'JPY', 'GBP', 'CNY', 'AUD', 'CAD', 'CHF', 'BRL', 'INR',
+    'MXN', 'RUB', 'HKD', 'ZAR', 'SEK', 'NZD', 'SGD', 'KRW', 'ARS', 'BDT',
   ]
 
   useEffect(() => {
     fetchCurrencies(setRates, setLoading, setError)
   }, [])
+
+  // Função para inverter as moedas
+  const handleSwapCurrencies = () => {
+    const temp = currency1
+    const newAmount2 = (amount1 * rates[temp]) / rates[currency2]
+    
+    setCurrency1(currency2)
+    setCurrency2(temp)
+    setAmount2(format(newAmount2))
+  }
 
   if (loading) return <p>Carregando...</p>
   if (error) return <p>Erro ao buscar os dados.</p>
@@ -57,10 +47,9 @@ const Converter = () => {
   const currencies = Object.keys(rates)
 
   const sortedCurrencies = [
-    ...popularCurrencies.filter((currency) => currencies.includes(currency)),
-    ...currencies.filter((currency) => !popularCurrencies.includes(currency)),
+    ...popularCurrencies.filter(currency => currencies.includes(currency)),
+    ...currencies.filter(currency => !popularCurrencies.includes(currency)),
   ]
-
 
   const handleAmount1Change = (amount1) => {
     if (currency1 === currency2) {
@@ -104,8 +93,10 @@ const Converter = () => {
           onCurrencyChange={handleCurrency1Change}
           onAmountChange={handleAmount1Change}
         />
+        
         <div>
           <svg
+            onClick={handleSwapCurrencies}
             width="26"
             height="26"
             viewBox="0 0 26 26"
@@ -116,6 +107,7 @@ const Converter = () => {
             <path d="M0 8.53124V7.71874C0 7.04564 0.545645 6.49999 1.21875 6.49999H19.5V4.06249C19.5 2.97745 20.8152 2.43536 21.5806 3.20069L25.6431 7.26319C26.119 7.73916 26.119 8.51083 25.6431 8.98675L21.5806 13.0493C20.8181 13.8116 19.5 13.2771 19.5 12.1875V9.75H1.21875C0.545645 9.75 0 9.20435 0 8.53124ZM24.7812 16.25H6.5V13.8125C6.5 12.7301 5.1867 12.1834 4.41944 12.9507L0.356941 17.0132C-0.11898 17.4892 -0.11898 18.2608 0.356941 18.7368L4.41944 22.7993C5.18258 23.5623 6.5 23.0261 6.5 21.9375V19.5H24.7812C25.4544 19.5 26 18.9543 26 18.2812V17.4687C26 16.7956 25.4544 16.25 24.7812 16.25Z" />
           </svg>
         </div>
+
         <CurrencyInput
           currencies={sortedCurrencies}
           amount={amount2}
