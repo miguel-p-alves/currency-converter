@@ -1,21 +1,109 @@
 import { useEffect, useState } from 'react'
 import CurrencyInput from './CurrencyInput'
+import fetchCurrencies from './FetchCurrencies'
 
 const Converter = () => {
   const [amount1, setAmount1] = useState(1)
   const [amount2, setAmount2] = useState(1)
-  const [currency1, setCurrency1] = useState('USD')
+  const [currency1, setCurrency1] = useState('BRL')
   const [currency2, setCurrency2] = useState('USD')
 
+  const [rates, setRates] = useState({})
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+
+ 
+  const popularCurrencies = [
+    'USD',
+    'EUR',
+    'JPY',
+    'GBP',
+    'CNY',
+    'AUD',
+    'CAD',
+    'CHF',
+    'BRL',
+    'INR',
+    'MXN',
+    'RUB',
+    'HKD',
+    'ZAR',
+    'SEK',
+    'NZD',
+    'SGD',
+    'KRW',
+    'ARS',
+    'BDT',
+  ]
+
+  useEffect(() => {
+    fetchCurrencies(setRates, setLoading, setError)
+  }, [])
+
+  useEffect(() =>{
+    // eslint-disable-next-line no-extra-boolean-cast
+    if(!!rates) {
+      handleAmount1Change(5)
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[rates])
+
+  if (loading) return <p>Carregando...</p>
+  if (error) return <p>Erro ao buscar os dados.</p>
+
+  const currencies = Object.keys(rates)
+
+ 
+  const sortedCurrencies = [
+    ...popularCurrencies.filter((currency) => currencies.includes(currency)),
+    ...currencies.filter((currency) => !popularCurrencies.includes(currency)),
+  ]
+
+  const format = (number) => {
+    return number.toFixed(4)
+  }
+
+  const handleAmount1Change = (amount1) => {
+    if (currency1 === currency2) {
+      setAmount2(amount1)
+    } else {
+      setAmount2(format((amount1 * rates[currency2]) / rates[currency1]))
+    }
+    setAmount1(amount1)
+  }
+
+  const handleCurrency1Change = (currency1) => {
+    if (currency1 === currency2) {
+      setAmount2(amount1)
+    } else {
+      setAmount2(format((amount1 * rates[currency2]) / rates[currency1]))
+    }
+    setCurrency1(currency1)
+  }
+
+  const handleAmount2Change = (amount2) => {
+    if (currency1 === currency2) {
+      setAmount1(amount2)
+    } else {
+      setAmount1(format((amount2 * rates[currency1]) / rates[currency2]))
+    }
+    setAmount2(amount2)
+  }
+
+  const handleCurrency2Change = (currency2) => {
+    setCurrency2(currency2)
+    setAmount2(format((amount1 * rates[currency2]) / rates[currency1]))
+  }
 
   return (
     <main className="mx-auto bg-[#FFFFFF] dark:bg-[#2D2D2D] dark:text-[#BDBDBD] box-border min-w-[1248px] px-[60px] py-[95px] rounded-lg shadow-md">
       <div className="flex justify-between">
         <CurrencyInput
-          currencies={['USD', 'EUR', 'GBP']} 
+          currencies={sortedCurrencies}
           amount={amount1}
           currency={currency1}
-          onCurrencyChange={(newCurrency) => setCurrency1(newCurrency)}
+          onCurrencyChange={handleCurrency1Change}
+          onAmountChange={handleAmount1Change}
         />
         <div>
           <svg
@@ -30,10 +118,11 @@ const Converter = () => {
           </svg>
         </div>
         <CurrencyInput
-          currencies={['USD', 'EUR', 'GBP']} 
+          currencies={sortedCurrencies}
           amount={amount2}
           currency={currency2}
-          onCurrencyChange={(newCurrency) => setCurrency2(newCurrency)}
+          onCurrencyChange={handleCurrency2Change}
+          onAmountChange={handleAmount2Change}
         />
       </div>
     </main>

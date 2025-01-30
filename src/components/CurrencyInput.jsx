@@ -8,13 +8,16 @@ const CurrencyInput = (props) => {
       <label htmlFor="amount">Amount</label>
       <input
         className="bg-[#F5F5F5] dark:bg-[#1E1E1E] dark:border-[#444444] border border-[#E0E0E0] rounded-md py-[14px] pl-[12px] min-w-sm focus:outline-none focus:ring-0 focus:border-[#BDBDBD] placeholder-[#666666]"
-        type="text"
+        type="number"
         id="amount"
         name="amount"
         value={props.amount}
+        onChange={(ev) => props.onAmountChange(ev.target.value)}
         placeholder="Enter amount"
+        autoComplete="off"
       />
       <Dropdown
+        onChange={(ev) => props.onCurrencyChange(ev.target.value)}
         content={
           <>
             {props.currencies.map((currency) => {
@@ -39,7 +42,8 @@ CurrencyInput.propTypes = {
   amount: PropTypes.number.isRequired,
   currency: PropTypes.string.isRequired,
   currencies: PropTypes.array.isRequired,
-  onCurrencyChange: PropTypes.func.isRequired,
+  onCurrencyChange: PropTypes.func,
+  onAmountChange: PropTypes.func,
 }
 
 export default CurrencyInput

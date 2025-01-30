@@ -8,7 +8,6 @@ const Dropdown = ({ content, selectedCurrency }) => {
   const dropDownRef = useRef()
   const [open, setOpen] = useState(false)
 
-
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropDownRef.current && !dropDownRef.current.contains(event.target)) {
@@ -19,7 +18,6 @@ const Dropdown = ({ content, selectedCurrency }) => {
     return () => document.removeEventListener('click', handleClickOutside)
   }, [])
 
-
   const enhancedContent = React.Children.map(
     content.props.children,
     (child) => {
@@ -27,7 +25,7 @@ const Dropdown = ({ content, selectedCurrency }) => {
         return React.cloneElement(child, {
           onClick: (...args) => {
             child.props.onClick?.(...args)
-            setOpen(false) 
+            setOpen(false)
           },
         })
       }
