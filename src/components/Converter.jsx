@@ -12,7 +12,17 @@ const Converter = () => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
- 
+  const format = (number) => {
+    return number.toFixed(4)
+  }
+
+  useEffect(() => {
+    if (rates['BRL'] && rates['USD']) {
+      // Define o valor de 1 BRL para USD assim que as taxas forem carregadas
+      setAmount2(format((1 * rates['USD']) / rates['BRL']))
+    }
+  }, [rates])
+
   const popularCurrencies = [
     'USD',
     'EUR',
@@ -40,28 +50,15 @@ const Converter = () => {
     fetchCurrencies(setRates, setLoading, setError)
   }, [])
 
-  useEffect(() =>{
-    // eslint-disable-next-line no-extra-boolean-cast
-    if(!!rates) {
-      handleAmount1Change(5)
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[rates])
-
   if (loading) return <p>Carregando...</p>
   if (error) return <p>Erro ao buscar os dados.</p>
 
   const currencies = Object.keys(rates)
 
- 
   const sortedCurrencies = [
     ...popularCurrencies.filter((currency) => currencies.includes(currency)),
     ...currencies.filter((currency) => !popularCurrencies.includes(currency)),
   ]
-
-  const format = (number) => {
-    return number.toFixed(4)
-  }
 
   const handleAmount1Change = (amount1) => {
     if (currency1 === currency2) {
