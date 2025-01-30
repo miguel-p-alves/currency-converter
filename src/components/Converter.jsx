@@ -49,7 +49,7 @@ const Converter = () => {
     fetchCurrencies(setRates, setLoading, setError)
   }, [])
 
-  // Função para inverter as moedas
+
   const handleSwapCurrencies = () => {
     const temp = currency1
     const newAmount2 = (amount1 * rates[temp]) / rates[currency2]

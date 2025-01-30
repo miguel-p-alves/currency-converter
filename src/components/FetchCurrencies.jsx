@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const API_URL = 'http://data.fixer.io/api/latest'
-const API_KEY = 'bd04c45807c428e957fe6b434ea4f37e'
+const API_KEY = '9e0771d98eddbe4edc1a4959e2227d7a'
 
 const fetchCurrencies = async (setRates, setLoading, setError) => {
   setLoading(true)

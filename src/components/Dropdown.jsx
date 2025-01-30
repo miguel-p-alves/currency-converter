@@ -9,7 +9,7 @@ const Dropdown = ({ content = <></>, selectedCurrency }) => {
   const [open, setOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
 
-  // Close dropdown when clicking outside
+  
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropDownRef.current && !dropDownRef.current.contains(event.target)) {
@@ -20,21 +20,21 @@ const Dropdown = ({ content = <></>, selectedCurrency }) => {
     return () => document.removeEventListener('click', handleClickOutside)
   }, [])
 
-  // Toggle dropdown open/close
+ 
   const toggleDropdown = () => {
     setOpen((prevOpen) => {
-      if (!prevOpen) setSearchQuery('') // Reset search when opening
+      if (!prevOpen) setSearchQuery('') 
       return !prevOpen
     })
   }
 
-  // Filter dropdown items based on search query
+
   const filteredContent = React.Children.toArray(
     content.props?.children || []
   ).filter((child) => {
     if (!React.isValidElement(child)) return false
 
-    // Acessar o valor da moeda de forma segura
+ 
     const currencyElement = child.props.children.props.children[1]
     const currency =
       typeof currencyElement === 'string'
@@ -47,13 +47,13 @@ const Dropdown = ({ content = <></>, selectedCurrency }) => {
     )
   })
 
-  // Enhance children to close dropdown on click
+
   const enhancedContent = React.Children.map(filteredContent, (child) => {
     if (React.isValidElement(child)) {
       return React.cloneElement(child, {
         onClick: (...args) => {
-          child.props.onClick?.(...args) // Call the original onClick handler
-          setOpen(false) // Close the dropdown
+          child.props.onClick?.(...args) 
+          setOpen(false)
         },
       })
     }
@@ -84,7 +84,7 @@ const Dropdown = ({ content = <></>, selectedCurrency }) => {
   )
 }
 
-// Add PropTypes here
+
 Dropdown.propTypes = {
   content: PropTypes.node.isRequired,
   selectedCurrency: PropTypes.string.isRequired,
