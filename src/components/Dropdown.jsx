@@ -41,6 +41,19 @@ const Dropdown = ({ content, selectedCurrency }) => {
     }
   )
 
+  // Enhance children to close dropdown on click
+  const enhancedContent = React.Children.map(filteredContent, (child) => {
+    if (React.isValidElement(child)) {
+      return React.cloneElement(child, {
+        onClick: (...args) => {
+          child.props.onClick?.(...args) // Call the original onClick handler
+          setOpen(false) // Close the dropdown
+        },
+      })
+    }
+    return child
+  })
+
   return (
     <div className="flex justify-end" ref={dropDownRef}>
       <DropdownButton
@@ -56,7 +69,7 @@ const Dropdown = ({ content, selectedCurrency }) => {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
-        {filteredContent}
+        {enhancedContent}
       </DropdownContent>
     </div>
   )
