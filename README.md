@@ -16,9 +16,9 @@ PropTypes – Type validation for better reliability
 🚀 Live Demo & Installation
 🔗 Try it out: [[Project URL](https://mpcurrencyconverter.netlify.app)]
 
-How to run it locally:
+How to run it locally: <br>
 
-git clone https://github.com/yourusername/currency-converter.git
-cd currency-converter
-npm install
-npm run dev
+git clone https://github.com/yourusername/currency-converter.git <br>
+cd currency-converter <br>  
+npm install <br>
+npm run dev <br>
