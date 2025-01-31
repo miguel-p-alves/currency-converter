@@ -4,7 +4,7 @@ A **real-time currency converter** built with **React.js** and **Tailwind CSS** 
 
 ## 🔹 Features  
 ✔️ **Live exchange rate lookup**  
-✔️ **Fully responsive** (mobile-first design)  
+✔️ **Fully responsive** 
 ✔️ **Interactive currency selection** with dropdowns  
 ✔️ **Instant swap** between base and target currencies  
 ✔️ **Built-in dark mode**  
