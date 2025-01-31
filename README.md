@@ -17,8 +17,7 @@ A **real-time currency converter** built with **React.js** and **Tailwind CSS** 
 - **PropTypes** – Type validation for better reliability  
 
 ## 🚀 Live Demo & Installation  
-🔗 **Try it out:** [Project URL]  
-💻 **Source Code:** [GitHub URL]  
+🔗 **Try it out:** [[Project URL](https://mpcurrencyconverter.netlify.app)]  
 
 ### **How to Run Locally**  
 ```sh  
