@@ -1,24 +1,31 @@
-A real-time currency converter built with React.js and Tailwind CSS for a modern and responsive UI. It fetches exchange rate data from an external API using Axios and provides an intuitive experience with reusable components.
+# 📊 Currency Converter  
 
-🔹 Features
-✔️ Live exchange rate lookup
-✔️ Fully responsive (mobile-first design)
-✔️ Interactive currency selection with dropdowns
-✔️ Instant swap between base and target currencies
-✔️ Built-in dark mode
+A **real-time currency converter** built with **React.js** and **Tailwind CSS** for a modern and responsive UI. It fetches exchange rate data from an **external API** using **Axios** and provides an intuitive experience with reusable components.  
 
-🛠 Tech Stack
-React.js – Component-based development, hooks (useState/useEffect)
-Tailwind CSS – Utility-first styling, dark mode support
-Axios – API integration for real-time data
-React Icons – UI enhancements
-PropTypes – Type validation for better reliability
-🚀 Live Demo & Installation
-🔗 Try it out: [[Project URL](https://mpcurrencyconverter.netlify.app)]
+## 🔹 Features  
+✔️ **Live exchange rate lookup**  
+✔️ **Fully responsive** (mobile-first design)  
+✔️ **Interactive currency selection** with dropdowns  
+✔️ **Instant swap** between base and target currencies  
+✔️ **Built-in dark mode**  
 
-How to run it locally: <br>
+## 🛠 Tech Stack  
+- **React.js** – Component-based development, hooks (useState/useEffect)  
+- **Tailwind CSS** – Utility-first styling, dark mode support  
+- **Axios** – API integration for real-time data  
+- **React Icons** – UI enhancements  
+- **PropTypes** – Type validation for better reliability  
 
-git clone https://github.com/yourusername/currency-converter.git <br>
-cd currency-converter <br>  
-npm install <br>
-npm run dev <br>
+## 🚀 Live Demo & Installation  
+🔗 **Try it out:** [Project URL]  
+💻 **Source Code:** [GitHub URL]  
+
+### **How to Run Locally**  
+```sh  
+git clone https://github.com/yourusername/currency-converter.git  
+cd currency-converter  
+npm install  
+npm run dev  
+```  
+
+Feel free to contribute or suggest improvements! 🚀  
